@@ -1,0 +1,10 @@
+
+python -m pip install django-compressor
+
+https://flowbite.com/docs/getting-started/django/
+
+pip install pymongo
+
+pip install dnspython
+
+https://www.mongodb.com/compatibility/mongodb-and-django
