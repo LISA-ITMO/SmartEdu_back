@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import django
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-axwy(o_fr8d87e(x*bwrx1p+3jz93)_jr01ubmp_nomp4g2qv-"
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +36,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'compressor',  # new
+
+    "main",
+
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -74,8 +83,12 @@ WSGI_APPLICATION = "hube.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE': 'djongo',
+        'NAME': env('DATABASE_NAME'),
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+          'host': env('DATABASE_HOST'),
+        }
     }
 }
 
@@ -111,7 +124,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 # Compressor config
 # Documentation at https://flowbite.com/docs/getting-started/django/
