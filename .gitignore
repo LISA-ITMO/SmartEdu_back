@@ -1,6 +1,8 @@
-/static/CACHE/
+/django_core/static/CACHE/
 /package-lock.json
 /venv/
 /node_modules/
 /.idea/*
 /hube/.env
+.venv
+*.env
