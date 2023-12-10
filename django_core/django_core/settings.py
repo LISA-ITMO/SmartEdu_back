@@ -44,6 +44,7 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
+    "user_app",
     "main_app"
 ]
 
@@ -129,6 +130,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Set auth User model
+AUTH_USER_MODEL = "user_app.User"
+
 
 # Compressor config
 # Documentation at https://flowbite.com/docs/getting-started/django/
