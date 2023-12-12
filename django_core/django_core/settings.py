@@ -35,6 +35,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
+    "lecture_app",
+    
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -88,11 +90,11 @@ WSGI_APPLICATION = "django_core.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'djongo',
         'NAME': env('DATABASE_NAME'),
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': env('DATABASE_HOST'),
+          'host': env('DATABASE_HOST'),
         }
     }
 }
