@@ -44,7 +44,8 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    "main_app"
+    "main_app",
+    "lecture_app"
 ]
 
 THIRD_PARTY_APPS = [
@@ -88,11 +89,11 @@ WSGI_APPLICATION = "django_core.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'djongo',
         'NAME': env('DATABASE_NAME'),
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': env('DATABASE_HOST'),
+          'host': env('DATABASE_HOST'),
         }
     }
 }
