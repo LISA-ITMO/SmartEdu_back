@@ -35,8 +35,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
-    "lecture_app",
-    
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,7 +44,8 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    "main_app"
+    "main_app",
+    "lecture_app"
 ]
 
 THIRD_PARTY_APPS = [
