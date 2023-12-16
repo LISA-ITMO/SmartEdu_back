@@ -13,11 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("lecture/", include("lecture_app.urls")),
-    path("", include("main_app.urls")),
-    path("admin/", admin.site.urls),
-]
+                  path("lecture/", include("lecture_app.urls")),
+                  path("", include("main_app.urls")),
+                  path("admin/", admin.site.urls),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# TODO: make serving in NGINX if DEBUG flag is True
