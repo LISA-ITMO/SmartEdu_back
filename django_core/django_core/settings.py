@@ -186,3 +186,9 @@ if DEBUG:
     REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append(
         "rest_framework.authentication.BasicAuthentication"
     )
+
+# DRF-SPECTACULAR settings
+SPECTACULAR_SETTINGS = {
+    "SCHEMA_PATH_PREFIX": "/api",
+}
+

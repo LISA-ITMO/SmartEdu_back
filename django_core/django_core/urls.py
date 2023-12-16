@@ -24,8 +24,7 @@ urlpatterns = [
                   re_path(r'^auth/', include('djoser.urls.jwt')),
                   path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
                   path("api/swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-                  path("lecture/", include("lecture_app.urls")),
-                  path("", include("main_app.urls")),
+                  path("api/", include("lecture_app.urls")),
                   path("admin/", admin.site.urls),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # TODO: make serving in NGINX if DEBUG flag is True

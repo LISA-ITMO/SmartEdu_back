@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from .views import TheoryListView
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("theory/", TheoryListView.as_view()),
 ]
