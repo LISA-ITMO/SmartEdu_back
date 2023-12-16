@@ -45,6 +45,7 @@ DJANGO_APPS = [
 
 LOCAL_APPS = [
     "user_app",
+    "lecture_app",
     "main_app"
 ]
 
