@@ -63,5 +63,5 @@ class TheoryTextContentListView(ListAPIView):
     """
 
     queryset = TheoryTextContent.objects.all()
-    serializer_class = TheoryVideoContentSerializer
+    serializer_class = TheoryTextContentSerializer
     lookup_field = 'theory'

@@ -37,4 +37,4 @@ class TheoryTextContentSerializer(ModelSerializer):
 
     class Meta:
         model = TheoryTextContent
-        fields = ("content",)
+        fields = ("content", )
