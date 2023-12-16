@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
+                  re_path(r'^auth/', include('djoser.urls')),
+                  re_path(r'^auth/', include('djoser.urls.jwt')),
+                  path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+                  path("api/swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
                   path("lecture/", include("lecture_app.urls")),
                   path("", include("main_app.urls")),
                   path("admin/", admin.site.urls),

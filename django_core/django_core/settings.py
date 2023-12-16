@@ -51,6 +51,11 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     "compressor",  # new
+    "drf_spectacular",
+    "rest_framework.authtoken",
+    "rest_framework_simplejwt.token_blacklist",
+    "djoser",
+    "rest_framework",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -150,3 +155,34 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 
 COMPRESS_ENABLED = True
 
+# Djoser settings
+
+DJOSER = {
+    "TOKEN_MODEL": None,  # We use only JWT
+    "LOGIN_FIELD": "email",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": False,
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": False,
+    "SEND_CONFIRMATION_EMAIL": False,
+    "SET_USERNAME_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_URL": "reset_password/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "username/reset/confirm/{uid}/{token}",
+    "ACTIVATION_URL": "activate/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": False,  # In future impl
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+}
+
+# DRF settings
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+if DEBUG:
+    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append(
+        "rest_framework.authentication.BasicAuthentication"
+    )
