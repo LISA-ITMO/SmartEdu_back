@@ -44,8 +44,9 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    "main_app",
-    "lecture_app"
+    "user_app",
+    "lecture_app",
+    "main_app"
 ]
 
 THIRD_PARTY_APPS = [
@@ -89,12 +90,12 @@ WSGI_APPLICATION = "django_core.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'djongo',
-        'NAME': env('DATABASE_NAME'),
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-          'host': env('DATABASE_HOST'),
-        }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env.str("POSTGRES_DB"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD"),
+        "HOST": env.str("POSTGRES_HOST"),
+        "PORT": env.str("POSTGRES_PORT"),
     }
 }
 
@@ -113,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "UTC"
 
@@ -125,11 +126,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
+
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Set auth User model
+AUTH_USER_MODEL = "user_app.User"
 
 # Compressor config
 # Documentation at https://flowbite.com/docs/getting-started/django/
@@ -138,4 +150,3 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 
 COMPRESS_ENABLED = True
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)

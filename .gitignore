@@ -170,3 +170,7 @@ cython_debug/
 #.idea/
 
 *.sqlite3
+
+# Ignore static and db folder
+/data
+django_core/static
