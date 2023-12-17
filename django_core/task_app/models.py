@@ -3,6 +3,10 @@ from django.db import models
 
 
 class TaskType(models.Model):
+    """
+    Contains available type for the task
+    """
+
     title = models.CharField(max_length=1024, primary_key=True)
 
     def __str__(self):
