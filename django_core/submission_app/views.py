@@ -1,24 +1,42 @@
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from .models import Submission
-from .serializers import CreateSubmissionSerializer, RetrieveSubmissionSerializer
+from .serializers import (
+    CreateSubmissionSerializer,
+    RetrieveUpdateSubmissionSerializer
+)
 from rest_framework.permissions import IsAuthenticated
 
 
-class SubmissionCreateView(CreateAPIView):
+class SubmissionViewSet(
+    GenericViewSet, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
+):
+
     """
-    Creates and send to "Code checker" code snippet
+    POST: Creates `Submission` and send code to "Code checker" \n
+    GET: Returns status of testing \n
+    PUT and PATCH: For internal usage only! (Access by API-KEY)
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = {
+        "GET": [IsAuthenticated],
+        "POST": [IsAuthenticated],
+        "PUT": [],
+    }
+
     queryset = Submission.objects.all()
-    serializer_class = CreateSubmissionSerializer
 
+    def get_serializer_class(self):
+        match self.request.method:
+            case "GET":
+                return RetrieveUpdateSubmissionSerializer
 
-class SubmissionRetrieveView(RetrieveAPIView):
-    """
-    Returns status of testing `Task`
-    """
+            case "POST":
+                return CreateSubmissionSerializer
 
-    permission_classes = [IsAuthenticated]
-    serializer_class = RetrieveSubmissionSerializer
-    queryset = Submission.objects.all()
+            case _:
+                return RetrieveUpdateSubmissionSerializer
+
+    def get_permissions(self):
+        method = self.request.method
+        return [permission() for permission in self.permission_classes.get(method, [])]

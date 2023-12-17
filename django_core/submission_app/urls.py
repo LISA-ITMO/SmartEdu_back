@@ -1,7 +1,9 @@
-from django.urls import path
-from .views import SubmissionCreateView, SubmissionRetrieveView
+from rest_framework.routers import DefaultRouter
+from .views import SubmissionViewSet
 
-urlpatterns = [
-    path("submission", SubmissionCreateView.as_view()),
-    path("submission/<int:pk>", SubmissionRetrieveView.as_view()),
-]
+urlpatterns = []
+
+router = DefaultRouter()
+router.register("submissions", SubmissionViewSet)
+
+urlpatterns += router.urls
