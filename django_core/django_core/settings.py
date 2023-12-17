@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -198,3 +199,10 @@ SPECTACULAR_SETTINGS = {
     "SCHEMA_PATH_PREFIX": "/api",
 }
 
+# Jazzmin settings
+JAZZMIN_SETTINGS = {
+    "hide_apps": [
+        "token_blacklist",
+        "auth",
+        "authtoken"]
+}
