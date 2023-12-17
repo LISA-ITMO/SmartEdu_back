@@ -31,7 +31,7 @@
 #### 🐘 Run postgresql in docker-compose or other database
 
  ```bash
- WIP 
+ docker compose --file local-docker-compose.yml up -d
  ```
 
 #### 🗃️ Run migrations
@@ -52,7 +52,7 @@ python django_core/manage.py createsuperuser
 python django_core/manage.py runserver
 ```
 
-## Swagger Docs (WIP)
+## Swagger Docs
 
 📖 Go to http://127.0.0.1:8000/api/swagger after running server
 
