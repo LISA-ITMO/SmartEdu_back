@@ -2,7 +2,7 @@ from django.db.models import TextChoices
 
 
 class LanguageEnum(TextChoices):
-    PYTHON = "python", "java"
+    PYTHON = "python", "python"
     JAVA = "java", "java"
     CPP = "C++", "C++"
     PHP = "PHP", "PHP"
