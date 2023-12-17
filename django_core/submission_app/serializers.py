@@ -17,7 +17,7 @@ class CreateSubmissionSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class RetrieveSubmissionSerializer(ModelSerializer):
+class RetrieveUpdateSubmissionSerializer(ModelSerializer):
     class Meta:
         model = Submission
-        fields = ["status"]
+        fields = ["status", "output"]
