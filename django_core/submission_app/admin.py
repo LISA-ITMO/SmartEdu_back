@@ -4,4 +4,4 @@ from .models import Submission
 
 @admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["pk", "user", "status"]

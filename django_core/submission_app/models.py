@@ -36,3 +36,7 @@ class Submission(models.Model):
     )
 
     worker_uuid = models.CharField(max_length=1024, verbose_name="UUID задачи воркера")
+
+    class Meta:
+        verbose_name = "Результат тестирования"
+        verbose_name_plural = "Результаты тестирований"
