@@ -29,7 +29,7 @@ class Submission(models.Model):
     code = models.TextField(blank=True)
 
     status = models.CharField(
-        verbose_name="Тип пользователя",
+        verbose_name="Статус",
         max_length=64,
         choices=StatusEnum.choices,
         default=StatusEnum.PENDING,
