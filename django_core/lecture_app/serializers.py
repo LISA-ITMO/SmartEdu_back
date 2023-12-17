@@ -1,10 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import (Theory,
-                     TheoryType,
-                     TheoryPresentContent,
-                     TheoryVideoContent,
-                     TheoryTextContent)
+from .models import (
+    Theory,
+    TheoryType,
+    TheoryPresentContent,
+    TheoryVideoContent,
+    TheoryTextContent,
+)
 
 
 class TheorySerializer(ModelSerializer):
@@ -20,21 +22,18 @@ class TheoryTypeSerializer(ModelSerializer):
 
 
 class TheoryPresentContentSerializer(ModelSerializer):
-
     class Meta:
         model = TheoryPresentContent
         fields = ("file_path",)
 
 
 class TheoryVideoContentSerializer(ModelSerializer):
-
     class Meta:
         model = TheoryVideoContent
         fields = ("file_path", "url")
 
 
 class TheoryTextContentSerializer(ModelSerializer):
-
     class Meta:
         model = TheoryTextContent
-        fields = ("content", )
+        fields = ("content",)

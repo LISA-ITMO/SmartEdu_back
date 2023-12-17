@@ -1,4 +1,5 @@
 from django_filters.rest_framework import BaseInFilter, CharFilter, FilterSet
+
 from .models import Theory
 
 
