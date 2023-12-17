@@ -35,6 +35,8 @@ class Submission(models.Model):
         default=StatusEnum.PENDING,
     )
 
+    output = models.TextField(null=True)
+
     worker_uuid = models.CharField(max_length=1024, verbose_name="UUID задачи воркера")
 
     class Meta:
