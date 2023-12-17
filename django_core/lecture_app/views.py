@@ -22,6 +22,7 @@ class TheoryListView(ListAPIView):
     """
     Returns list of existing Theories.
     provides pagination and filter by `theory_type`.
+    Also provide filter by `tags`
     """
 
     queryset = Theory.objects.all()

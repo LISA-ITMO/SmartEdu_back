@@ -12,4 +12,4 @@ class TheoryFilter(FilterSet):
 
     class Meta:
         model = Theory
-        fields = ["theory_type"]
+        fields = ["theory_type", "tags"]
