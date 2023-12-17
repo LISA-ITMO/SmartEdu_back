@@ -49,7 +49,8 @@ LOCAL_APPS = [
     "lecture_app",
     "task_app",
     "submission_app",
-    "main_app"
+    "main_app",
+    "tags_app"
 ]
 
 THIRD_PARTY_APPS = [
