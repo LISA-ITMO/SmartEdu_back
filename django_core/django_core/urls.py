@@ -20,11 +20,16 @@ from django.urls import include, path, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
-                  re_path(r'^auth/', include('djoser.urls')),
-                  re_path(r'^auth/', include('djoser.urls.jwt')),
-                  path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-                  path("api/swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-                  path("api/", include("lecture_app.urls")),
-                  path("admin/", admin.site.urls),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    re_path(r"^auth/", include("djoser.urls")),
+    re_path(r"^auth/", include("djoser.urls.jwt")),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/swagger/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path("api/", include("lecture_app.urls")),
+    path("api/", include("tags_app.urls")),
+    path("admin/", admin.site.urls),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # TODO: make serving in NGINX if DEBUG flag is True

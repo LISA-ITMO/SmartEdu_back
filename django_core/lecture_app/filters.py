@@ -8,8 +8,7 @@ class CharFilterInFilter(BaseInFilter, CharFilter):
 
 
 class TheoryFilter(FilterSet):
-    theory_type = CharFilterInFilter(field_name="theory_type__title", lookup_expr="in")
 
     class Meta:
         model = Theory
-        fields = ["theory_type"]
+        fields = ["theory_type", "tags"]

@@ -33,6 +33,7 @@ class Task(models.Model):
     )
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(TaskType, null=True, on_delete=models.SET_NULL)
+    tags = models.ManyToManyField("tags_app.Tag")
 
     def __str__(self):
         return f"{self.name} ({self.type})"

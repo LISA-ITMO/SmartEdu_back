@@ -26,6 +26,7 @@ class Theory(models.Model):
     theory_type = models.ForeignKey(TheoryType,
                                     null=True,
                                     on_delete=models.SET_NULL)
+    tags = models.ManyToManyField("tags_app.Tag")
 
     def __str__(self):
         return self.title
