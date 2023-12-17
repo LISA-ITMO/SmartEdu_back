@@ -35,4 +35,4 @@ class Submission(models.Model):
         default=StatusEnum.PENDING,
     )
 
-    worker_uuid = models.CharField(max_length=1024, verbose_name="Номер задачи")
+    worker_uuid = models.CharField(max_length=1024, verbose_name="UUID задачи воркера")
