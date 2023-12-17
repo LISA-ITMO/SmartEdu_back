@@ -7,14 +7,20 @@ class Submission(models.Model):
     """Model that represent submission and checking task"""
 
     user = models.ForeignKey(
-        "user_app.User", on_delete=models.SET_NULL, related_name="submissions"
+        "user_app.User",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="submissions",
     )
 
-    task = models.ForeignKey(
-        "task_app.Task", on_delete=models.SET_NULL, related_name="submissions"
+    code_task = models.ForeignKey(
+        "task_app.CodeTask",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="submissions",
     )
 
-    language = models.TextField(
+    language = models.CharField(
         verbose_name="Язык программирования",
         max_length=64,
         choices=LanguageEnum.choices,
