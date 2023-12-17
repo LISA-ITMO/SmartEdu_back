@@ -5,6 +5,9 @@ from django.db import models
 class TaskType(models.Model):
     title = models.CharField(max_length=1024, primary_key=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = "Тип задания"
         verbose_name_plural = "Типы заданий"
@@ -27,6 +30,9 @@ class Task(models.Model):
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(TaskType, null=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return f"{self.name} ({self.type})"
+
     class Meta:
         verbose_name = "Задача"
         verbose_name_plural = "Задачи"
@@ -41,6 +47,9 @@ class CodeTask(models.Model):
         Task, on_delete=models.CASCADE, related_name="code_task"
     )
     content = models.TextField()
+
+    def __str__(self):
+        return f'Условие "{self.task.name}"'
 
     class Meta:
         verbose_name = "Условие задачи"
