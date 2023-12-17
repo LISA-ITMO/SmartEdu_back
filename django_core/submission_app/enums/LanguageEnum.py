@@ -8,4 +8,3 @@ class LanguageEnum(TextChoices):
     PHP = "PHP", "PHP"
     C = "C", "C"
     JS = "js", "js"
-
