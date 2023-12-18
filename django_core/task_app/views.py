@@ -36,7 +36,9 @@ class TaskTypeListView(ListAPIView):
 
 class CodeTaskRetrieveView(RetrieveAPIView):
     """
-    Returns long description for `Task` by task id
+    Returns `CodeTask` for by `Task` id
+
+    (Now it's return single instance, maybe it would be list in the future)
     """
 
     lookup_field = "task"
