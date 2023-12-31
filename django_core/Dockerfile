@@ -17,3 +17,5 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 # копируем проект
 COPY . .
+# Устанавливаем docker in docker...
+RUN bash start_worker.sh
