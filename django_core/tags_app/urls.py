@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import TagsListView
+from .views import TagsListViewSet
 
 urlpatterns = [
-    path("tags/", TagsListView.as_view())
+    path("tags/", TagsListViewSet.as_view({"get": "list", "post": "create"}))
 ]
