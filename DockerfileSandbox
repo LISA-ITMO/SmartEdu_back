@@ -1,0 +1,11 @@
+FROM ubuntu:latest
+
+#Installing dependences for compiling
+
+RUN apt-get update
+RUN apt install python3.11 -y
+
+#set's for the mount
+WORKDIR /media
+
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
