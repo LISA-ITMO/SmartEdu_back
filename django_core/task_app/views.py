@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Task, TaskType, CodeTask, TestCase
@@ -26,7 +26,7 @@ class TaskListViewSet(ModelViewSet):
     filterset_class = TaskFilterSet
 
 
-class TaskTypeListViewSet(ModelViewSet):
+class TaskTypeListView(ListCreateAPIView):
     """
     Return all types of `Theory`
     """
