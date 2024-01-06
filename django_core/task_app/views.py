@@ -26,7 +26,7 @@ class TaskListViewSet(ModelViewSet):
     filterset_class = TaskFilterSet
 
 
-class TaskTypeListView(ListCreateAPIView):
+class TaskTypeListView(ListAPIView):
     """
     Return all types of `Theory`
     """
