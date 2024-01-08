@@ -4,7 +4,29 @@ from io import BytesIO
 
 
 class BaseCodeExecutor:
-    """Base class to execute and control code in docker container by tag"""
+    """
+    Base class to execute and control code in docker container by tag
+
+    This class has his own context which represents by dictionary.
+
+    Context:
+        context = {
+            "filename": default file name of source code,
+                "temp_folder": path to tempfolder,
+                "tag": docker container tag,
+            }
+
+
+    Attributes:
+        default_filename: default file name to run code
+        file_prefix: file prefix which adds for source_code
+        image_tag: docker's container tag to execute code
+        temp_folder: temp directory for binding to docker container, if not set it's create new every time
+        run_command: string to format for running code
+        compile_command: string to format for compiling code
+        docker_command: string to format for start docker container
+
+    """
 
     default_filename = "source_code"
     file_prefix = ""
@@ -14,17 +36,21 @@ class BaseCodeExecutor:
 
     run_command: None | str = None
     compile_command: None | str = None
-    docker_command = (
-        'docker run --mount type=bind,source={temp_folder},target="/media" {tag}'
-    )
+    docker_command = 'docker run --stop-timeout 100 --mount type=bind,source={temp_folder},target="/media" {tag}'
 
     def __init__(self, code: str):
-        self.code = code
+        """
+        :param code: Initial code to execute with given command
+        """
+        self.code = bytes(code, "UTF-8")
         if not self.temp_folder:
             self.temp_folder = TemporaryDirectory()
 
-    def get_tag(self):
-        """Can use for getting image by id or etc. (You can create images)"""
+    def get_tag(self) -> str:
+        """
+        Can use for getting image by id or etc. (You can create images)
+        :return: image tag for docker container
+        """
         return self.image_tag
 
     def create_code_file(self):
@@ -38,6 +64,7 @@ class BaseCodeExecutor:
 
     @property
     def temp_folder_name(self):
+        """full path to folder"""
         return self.temp_folder.name
 
     def execute(self, stdin=None):
@@ -46,7 +73,8 @@ class BaseCodeExecutor:
         :param stdin: input data for code, usually it's should be str
         :return: status code of process.
         """
-        self.write_file_to_temp("stdin", stdin)
+        self.write_stdin(stdin)
+
         self.create_code_file()
 
         docker_runner = Popen(
@@ -57,18 +85,37 @@ class BaseCodeExecutor:
 
         return docker_runner.returncode
 
+    def write_stdin(self, stdin: bytes):
+        """
+        Writes stdin to file if represented. Else writes blank file
+        :param stdin: bytes string
+        :return: None
+        """
+        if stdin:
+            self.write_file_to_temp("stdin", stdin)
+        else:
+            self.write_file_to_temp("stdin", b"")
+
     def get_run_command(self):
         """get function for formatting and adding stream redirection"""
         return (
             f'"{self.run_command.format(**self.get_context()) + " < stdin > stdout"}"'
         )
 
-    def get_compile_command(self):
+    def get_compile_command(self) -> str | None:
+        """
+        Returns command for compiling source code
+        :return: None if compile command is not set
+        """
         if self.compile_command:
             return self.compile_command.format(**self.get_context())
         return None
 
-    def get_exec_command(self):
+    def get_exec_command(self) -> str:
+        """
+        Returns full command to run programm
+        :return: str
+        """
         return " && ".join(
             filter(
                 lambda d: d is not None,
@@ -76,14 +123,17 @@ class BaseCodeExecutor:
             )
         )
 
-    def get_filename(self, filename: str):
+    def get_filename(self, filename: str) -> str:
+        """
+        Function returns full path for file based on temp dirrectory
+        :param filename: name of file
+        :return: str: full path to file
+        """
         return self.temp_folder_name + "/" + filename
 
     def get_context(self) -> dict:
         """Returns dict with a context to format string"""
         return {
-            "max_mem": self.max_mem,
-            "max_realtime": self.max_realtime,
             "filename": self.default_filename + self.file_prefix,
             "temp_folder": self.temp_folder_name,
             "tag": self.get_tag(),
@@ -105,6 +155,6 @@ class ConcretePythonCodeExecutor(BaseCodeExecutor):
 
 
 # TODO: make refactor with some dirty funcs
-# TODO: make mixin for mesuring
+# TODO: make mixin to compile and run in different containers (if it's works idk)
 # TODO: make tests :(
 # TODO: write docs for this class
