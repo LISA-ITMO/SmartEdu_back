@@ -44,6 +44,7 @@ services:
     volumes:
       - ./django_core:/django_core
       - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
     env_file:
       - django_core/django_core/.env
 
