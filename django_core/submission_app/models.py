@@ -1,5 +1,6 @@
 from django.db import models
 from .enums import StatusEnum, LanguageEnum
+from .utils import get_executor_by_name
 
 
 class Submission(models.Model):
@@ -38,6 +39,10 @@ class Submission(models.Model):
     output = models.TextField(null=True)
 
     worker_uuid = models.CharField(max_length=1024, verbose_name="UUID задачи воркера")
+
+    @property
+    def code_executor(self):
+        return get_executor_by_name(self.language)
 
     class Meta:
         verbose_name = "Результат тестирования"
