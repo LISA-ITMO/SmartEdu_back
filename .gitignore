@@ -175,3 +175,4 @@ cython_debug/
 /data/
 django_core/static
 /rabbitmq/
+django_core/media
