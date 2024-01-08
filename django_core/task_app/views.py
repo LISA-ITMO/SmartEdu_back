@@ -1,4 +1,5 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView
+from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Task, TaskType, CodeTask, TestCase
 from .paginations import TaskPagination
@@ -11,7 +12,7 @@ from .seralizers import (
 from .filters import TaskFilterSet
 
 
-class TaskListView(ListAPIView):
+class TaskListViewSet(ModelViewSet):
     """
     Provides getting list of Task
     Allow filtration by `tags` and `type`
@@ -36,7 +37,9 @@ class TaskTypeListView(ListAPIView):
 
 class CodeTaskRetrieveView(RetrieveAPIView):
     """
-    Returns long description for `Task` by task id
+    Returns `CodeTask` for by `Task` id
+
+    (Now it's return single instance, maybe it would be list in the future)
     """
 
     lookup_field = "task"

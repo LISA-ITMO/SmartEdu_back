@@ -28,10 +28,11 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    path("admin/", admin.site.urls),
     path("api/", include("lecture_app.urls")),
     path("api/", include("tags_app.urls")),
     path("api/", include("task_app.urls")),
-    path("api/", include("submission_app.urls")),
-    path("admin/", admin.site.urls),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# TODO: make serving in NGINX if DEBUG flag is True
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
