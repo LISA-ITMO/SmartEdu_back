@@ -1,5 +1,5 @@
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from .models import Submission
 from .serializers import (
     CreateSubmissionSerializer,
@@ -9,13 +9,12 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class SubmissionViewSet(
-    GenericViewSet, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
+    GenericViewSet, CreateModelMixin, RetrieveModelMixin
 ):
 
     """
     POST: Creates `Submission` and send code to "Code checker" \n
     GET: Returns status of testing \n
-    PUT and PATCH: For internal usage only! (Access by API-KEY)
     """
 
     permission_classes = {

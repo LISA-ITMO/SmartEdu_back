@@ -10,7 +10,7 @@ from .models import Submission
 class CreateSubmissionSerializer(ModelSerializer):
     user = HiddenField(default=CurrentUserDefault())
     status = CharField(read_only=True)
-    worker_uuid = CharField(read_only=True)
+    output = CharField(read_only=True)
 
     class Meta:
         model = Submission
@@ -20,4 +20,4 @@ class CreateSubmissionSerializer(ModelSerializer):
 class RetrieveUpdateSubmissionSerializer(ModelSerializer):
     class Meta:
         model = Submission
-        fields = ["status", "output"]
+        fields = ["status"]
