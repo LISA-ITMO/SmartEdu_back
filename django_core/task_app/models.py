@@ -27,7 +27,7 @@ class Task(models.Model):
         default=1, validators=[MaxValueValidator(10), MinValueValidator(1)]
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(editable=True)
+    updated_at = models.DateTimeField(editable=True, auto_now_add=True)
     created_by = models.ForeignKey(
         "user_app.User", on_delete=models.SET_NULL, related_name="tasks", null=True
     )
@@ -69,7 +69,9 @@ class TestCase(models.Model):
     code_task = models.ForeignKey(
         CodeTask, on_delete=models.CASCADE, related_name="test_cases"
     )
-    content = models.JSONField()
+
+    stdin = models.FileField(verbose_name="Входные данные", null=True)
+    stdout = models.FileField(verbose_name="Выходные данные", null=False)
 
     class Meta:
         verbose_name = "Тест для задачи"
