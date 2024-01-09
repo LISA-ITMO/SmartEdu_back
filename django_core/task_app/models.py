@@ -69,7 +69,9 @@ class TestCase(models.Model):
     code_task = models.ForeignKey(
         CodeTask, on_delete=models.CASCADE, related_name="test_cases"
     )
-    content = models.JSONField()
+
+    stdin = models.FileField(verbose_name="Входные данные", null=True)
+    stdout = models.FileField(verbose_name="Выходные данные", null=False)
 
     class Meta:
         verbose_name = "Тест для задачи"

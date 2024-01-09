@@ -61,6 +61,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "djoser",
     "rest_framework",
+    "corsheaders",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -68,6 +69,7 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -208,3 +210,52 @@ JAZZMIN_SETTINGS = {
         "auth",
         "authtoken"]
 }
+
+# Logging settings
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "handlers": {
+        # Send all messages to console
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+        },
+    },
+    "loggers": {
+        # This is the "catch all" logger
+        "": {
+            "handlers": [
+                "console",
+            ],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+    "formatters": {
+        "default": {
+            "format": "[{asctime}] {name} {levelname} {module} {message}",
+            "style": "{",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+        }
+    },
+}
+
+
+# Celery Configuration
+RABBITMQ_HOST = env.str("RABBITMQ_HOST", "rabbitmq")
+RABBITMQ_PORT = env.str("RABBITMQ_PORT", "5672")
+RABBITMQ_DEFAULT_USER = env.str("RABBITMQ_DEFAULT_USER", "rmuser")
+RABBITMQ_DEFAULT_PASS = env.str("RABBITMQ_DEFAULT_PASS", "rmpassword")
+RABBITMQ_URL = f"amqp://{RABBITMQ_DEFAULT_USER}:{RABBITMQ_DEFAULT_PASS}@{RABBITMQ_HOST}:{RABBITMQ_PORT}"
+RABBITMQ_BACKEND_URL = f"rpc://{RABBITMQ_DEFAULT_USER}:{RABBITMQ_DEFAULT_PASS}@{RABBITMQ_HOST}:{RABBITMQ_PORT}"
+
+CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", RABBITMQ_URL)
+CELERY_RESULT_BACKEND = env.str(
+    "CELERY_BROKER_BACKEND", RABBITMQ_BACKEND_URL
+)
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
