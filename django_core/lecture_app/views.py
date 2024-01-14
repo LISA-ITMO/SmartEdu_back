@@ -1,4 +1,6 @@
 from rest_framework.generics import ListAPIView
+from rest_framework.viewsets import ModelViewSet
+
 from .models import (
     Theory,
     TheoryType,
@@ -18,13 +20,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .filters import TheoryFilter
 
 
-class TheoryListView(ListAPIView):
+class TheoryListViewSet(ModelViewSet):
     """
-    Returns list of existing Theories.
-    provides pagination and filter by `theory_type`.
-    Also provide filter by `tags`
-    """
-
+        Returns list of existing Theories.
+        provides pagination and filter by `theory_type`.
+        Also provide filter by `tags`
+        """
     queryset = Theory.objects.all()
     serializer_class = TheorySerializer
     pagination_class = TheoryPagination

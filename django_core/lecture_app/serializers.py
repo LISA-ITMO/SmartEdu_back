@@ -12,7 +12,7 @@ from .models import (
 class TheorySerializer(ModelSerializer):
     class Meta:
         model = Theory
-        fields = "__all__"
+        fields = ("id", 'title', 'desc', 'time_to_read', 'theory_type', 'tags')
 
 
 class TheoryTypeSerializer(ModelSerializer):
