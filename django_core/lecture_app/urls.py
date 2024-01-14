@@ -1,15 +1,19 @@
 from django.urls import path
+from rest_framework import routers
 
-from .views import (TheoryListView,
+from .views import (TheoryListViewSet,
                     TheoryTypeListView,
                     TheoryPresentContentListView,
                     TheoryVideoContentListView,
                     TheoryTextContentListView)
 
+router = routers.DefaultRouter()
+router.register(r'theory', TheoryListViewSet)
+
 urlpatterns = [
-    path("theory/", TheoryListView.as_view()),
     path("theory/types", TheoryTypeListView.as_view()),
     path("theory/<int:theory>/files", TheoryPresentContentListView.as_view()),
     path("theory/<int:theory>/texts", TheoryTextContentListView.as_view()),
     path("theory/<int:theory>/videos", TheoryVideoContentListView.as_view())
 ]
+urlpatterns += router.urls
