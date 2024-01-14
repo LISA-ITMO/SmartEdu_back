@@ -5,12 +5,12 @@ from .models import User
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     ordering = ["email"]
-    list_display = ["pk", "email", "type"]
+    list_display = ["pk", "email", "username", "type"]
     fieldsets = [
         (
             "Основная информация",
             {
-                "fields": ("email", "password", "type")
+                "fields": ("email", "password", "username", "type")
             }
         ),
         (
