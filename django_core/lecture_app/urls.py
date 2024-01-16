@@ -18,9 +18,6 @@ router.register(r'theory', TheoryListViewSet)
 
 urlpatterns = [
     path("theory/types", TheoryTypeListView.as_view()),
-    path("theory/<int:theory>/files", TheoryPresentContentListView.as_view()),
-    path("theory/<int:theory>/texts", TheoryTextContentListView.as_view()),
-    path("theory/<int:theory>/videos", TheoryVideoContentListView.as_view())
 ]
 
 urlpatterns += router.urls
