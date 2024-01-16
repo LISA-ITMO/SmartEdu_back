@@ -43,16 +43,6 @@ class TheoryTypeListView(ListAPIView):
     serializer_class = TheoryTypeSerializer
 
 
-# class TheoryPresentContentListView(ListAPIView):
-#     """
-#     Return files by `Theory` `id`
-#     """
-#
-#     queryset = TheoryPresentContent.objects.all()
-#     serializer_class = TheoryPresentContentSerializer
-#     lookup_field = "theory"
-
-
 class TheoryPresentContentListViewSet(ModelViewSet):
     """
         Return files by theory `id`
