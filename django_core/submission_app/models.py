@@ -1,5 +1,5 @@
 from django.db import models
-from .enums import StatusEnum, LanguageEnum
+from .enums import StatusEnum, LanguageEnum, HintTypeEnum
 from .utils import get_executor_by_name
 
 
@@ -45,3 +45,27 @@ class Submission(models.Model):
     class Meta:
         verbose_name = "Результат тестирования"
         verbose_name_plural = "Результаты тестирований"
+
+
+class UserPrompt(models.Model):
+    """Model that saves user's prompt in db"""
+
+    """It may be redundant!!!"""
+    submission = models.ForeignKey(
+        Submission,
+        verbose_name="Результат тестирования",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    user = models.ForeignKey(
+        "user_app.User",
+        verbose_name="Пользователь",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    hint_type = models.CharField(
+        max_length=64, choices=HintTypeEnum.choices, default=HintTypeEnum.AFTER_RUN
+    )
+
+    content = models.JSONField(verbose_name="Контент", null=True, blank=True)
