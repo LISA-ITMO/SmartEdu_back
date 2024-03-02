@@ -153,7 +153,8 @@ class ConcretePythonCodeExecutor(BaseCodeExecutor):
     run_command = "python3.11 {filename}"
     image_tag = "sandbox"
 
-
+class ConcreteNodeExecutor(BaseCodeExecutor):
+    pass
 # TODO: make refactor with some dirty funcs
 # TODO: make mixin to compile and run in different containers (if it's works idk)
 # TODO: make tests :(
