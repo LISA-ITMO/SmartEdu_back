@@ -1,4 +1,4 @@
-from django_core.celery import app
+from django_core.django_core.celery import app
 from logging import getLogger
 from .models import Submission
 from .enums import StatusEnum
@@ -6,6 +6,8 @@ from .utils import ConcretePythonCodeExecutor, CodeChecker
 from openai import OpenAI
 from .utils import PromptBuilder, get_code_form_submission
 from .models import UserPrompt
+from .utils.gigachat_adapter import GigaChatAdapter
+from gigachat import GigaChat
 
 from django.conf import settings
 
@@ -50,25 +52,22 @@ def run_code(submission_pk: int):
 @app.task()
 def send_prompt_by_submission(submission_pk: int):
     """Sends prompt with a code to OpenAI based on submission"""
-    client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    giga = GigaChat(credentials=settings.GIGACHAT_API_KEY,
+            verify_ssl_certs=settings.SSL_SERTS)
+    giga_adapter = GigaChatAdapter(giga)
+    # сделать экзмпляр класса
 
     prompt = PromptBuilder(
         get_code_form_submission(submission_pk)
     )
 
-    response = client.chat.completions.create(
-        model=settings.OPENAI_MODEL,
-        messages=[
-            {"role": "system", "content": settings.OPENAI_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt()},
-        ],
-    )
-
-    content = response.model_dump_json()
+    response = giga_adapter.execute(prompt)
+    # if response is not None:
+    #     content = response.model_dump_json()
 
     if settings.SAVE_PROMPT:
         UserPrompt.objects.create(
             submission_pk=submission_pk,
-            content=content
+            content=response
         )
-    return content
+    return response

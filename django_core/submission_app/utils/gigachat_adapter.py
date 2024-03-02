@@ -12,24 +12,24 @@ class StatusEnum(Enum):
     FAILURE = "FAILURE"
 
 
-class Data(dataclass):
-    status = {}
+class Data():
+    # status = {}
+    pass
 
 
 class GigaChatAdapter:
 
-    def __init__(self):
+    def __init__(self, giga):
         """
         Here just implement class instance and other auth stuff
         :param api_key:
         """
-        self.giga = GigaChat(
+        self.giga = giga(
             credentials=settings.GIGACHAT_API_KEY,
             verify_ssl_certs=settings.SSL_SERTS)
 
-    def execute(self, submission_pk) -> dict:
+    def execute(self, prompt):
         """Use api to intract with model"""
-        prompt = PromptBuilder(get_code_form_submission(submission_pk))
         messages = [SystemMessage(content=prompt)]
         res = self.giga(messages)
         data = {}

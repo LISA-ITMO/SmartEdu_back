@@ -260,10 +260,10 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 
 # Chat gpt configuration
-OPENAI_API_KEY = env.str("OPENAI_API_KEY")
+# OPENAI_API_KEY = env.str("OPENAI_API_KEY")
 OPENAI_USER_PROMPT = env.str("OPENAI_USER_PROMPT", "НАПИШИ СЛОВАМИ ЧТО МОЖНО ИСПРАВИТЬ В ЭТОМ КОДЕ")
 OPENAI_SYSTEM_PROMPT = env.str("OPENAI_SYSTEM_PROMPT", "Представь что ты преподаватель по программированию")
-OPENAI_MODEL = env.str("OPENAI_MODEL", "gpt-3.5")
+# OPENAI_MODEL = env.str("OPENAI_MODEL", "gpt-3.5")
 SAVE_PROMPT = env.bool("SAVE_PROMPT", default=False)
 
 # Giga chat configuration
