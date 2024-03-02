@@ -243,7 +243,6 @@ LOGGING = {
     },
 }
 
-
 # Celery Configuration
 RABBITMQ_HOST = env.str("RABBITMQ_HOST", "rabbitmq")
 RABBITMQ_PORT = env.str("RABBITMQ_PORT", "5672")
@@ -260,10 +259,14 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 
-
 # Chat gpt configuration
 OPENAI_API_KEY = env.str("OPENAI_API_KEY")
 OPENAI_USER_PROMPT = env.str("OPENAI_USER_PROMPT", "НАПИШИ СЛОВАМИ ЧТО МОЖНО ИСПРАВИТЬ В ЭТОМ КОДЕ")
 OPENAI_SYSTEM_PROMPT = env.str("OPENAI_SYSTEM_PROMPT", "Представь что ты преподаватель по программированию")
 OPENAI_MODEL = env.str("OPENAI_MODEL", "gpt-3.5")
 SAVE_PROMPT = env.bool("SAVE_PROMPT", default=False)
+
+# Giga chat configuration
+GIGACHAT_API_KEY = env.str("GIGACHAT_API_KEY",
+                           "M2IxNGU4NWItMDczMC00YTc2LWIzYzAtOTkyZDRiNjQ0MDhkOmVlNjlmMjRiLWFkMDQtNDMxNy05NWQ2LWI3OGE0MGUxZDRjMg==")
+SSL_SERTS = env.bool("SSL_SERTS", default=False)
