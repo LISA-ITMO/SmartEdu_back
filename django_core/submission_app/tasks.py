@@ -52,9 +52,7 @@ def run_code(submission_pk: int):
 @app.task()
 def send_prompt_by_submission(submission_pk: int):
     """Sends prompt with a code to OpenAI based on submission"""
-    giga = GigaChat(credentials=settings.GIGACHAT_API_KEY,
-            verify_ssl_certs=settings.SSL_SERTS)
-    giga_adapter = GigaChatAdapter(giga)
+    giga_adapter = GigaChatAdapter()
     # сделать экзмпляр класса
 
     prompt = PromptBuilder(

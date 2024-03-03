@@ -1,5 +1,5 @@
 from django.conf import settings
-from gigachat import GigaChat
+from langchain.chat_models.gigachat import GigaChat
 
 from dataclasses import dataclass
 from enum import Enum
@@ -19,12 +19,12 @@ class Data():
 
 class GigaChatAdapter:
 
-    def __init__(self, giga):
+    def __init__(self):
         """
         Here just implement class instance and other auth stuff
         :param api_key:
         """
-        self.giga = giga(
+        self.giga = GigaChat(
             credentials=settings.GIGACHAT_API_KEY,
             verify_ssl_certs=settings.SSL_SERTS)
 
@@ -36,3 +36,5 @@ class GigaChatAdapter:
         data['prompt'] = prompt
         data['answer'] = res.content
         return data
+
+
