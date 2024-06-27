@@ -32,6 +32,7 @@ urlpatterns = [
     path("api/", include("lecture_app.urls")),
     path("api/", include("tags_app.urls")),
     path("api/", include("task_app.urls")),
+    path("api/", include("submission_app.urls"))
 ]
 
 if settings.DEBUG:
